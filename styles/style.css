@@ -62,7 +62,7 @@ nav a:hover {
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  color: white;
+  color: 2a2a7a;
   font-weight: bold;
 }
 .header-buttons button:hover {
@@ -75,8 +75,9 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* vertically center */
+  justify-content: flex-start; /* move content to top */
   width: 100%;
+  padding-top: 60px;           /* add space from top */
 }
 
 main h1 {
@@ -95,7 +96,7 @@ main .start-btn {
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  color: white;
+  color: blue;
   font-weight: bold;
   margin-bottom: 30px;
   margin-top: 0;
@@ -115,4 +116,35 @@ main .start-btn:hover {
   font-weight: bold;
   margin-top: 0;
   text-align: center;
+}
+
+/* Fake button for demonstration */
+.fake-btn {
+  padding: 30px 20px;
+  font-size: 44px;
+  background-color: rgb(21, 22, 81);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-top: 0;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: default;
+  text-align: center;
+  user-select: none;
+}
+
+.vertical-box {
+  margin-top: 40px; /* more space between fake button and first button */
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border: 2px solid navy; /* outlined box */
 }
