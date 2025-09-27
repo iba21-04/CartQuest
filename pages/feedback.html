@@ -1,0 +1,48 @@
+<html>
+<body bgcolor="lightgreen" link="white" vlink="white">
+<header>
+  <font style="color:blue;font-family:harrington;font-size:80px;">
+    <center>
+      <b> Feedback Form </b>
+    </center>
+  </font> 
+  <p style="background-color:green;text-align:right;word-spacing:10px;">
+    <font color="white" size="6">
+      <a href="project.html"> home </a>  |  
+      <a href="about.html"> about </a>  |   
+      <a href="contact.html"> contact </a>  |  
+      <a href="feedback.html"> feedback </a> 
+    </font>
+  </p>
+</header>
+
+<p style="font-size:35px;color:navy;">
+  Please fill the given feedback form:-
+</p>
+
+<form action="mailto:irabatra21@gmail.com" method="post" style="border-style:ridge; border-color:green; font-size:35px; color:navy;">
+  Name <input type="text" name="first_name"> <br>
+  E-mail <input type="text" name="email"> <br>
+  Enter your age <input type="text" name="age" maxlength="2" size="2"> <br>
+  Choose your gender <br>
+  Male <input type="radio" name="gender" value="male">  
+  Female <input type="radio" name="gender" value="female"> <br>
+
+  How would you rate our website?  
+  <pre>
+  1 <input type="radio" name="ratings" value="1">   
+  2 <input type="radio" name="ratings" value="2">   
+  3 <input type="radio" name="ratings" value="3">   
+  4 <input type="radio" name="ratings" value="4">   
+  5 <input type="radio" name="ratings" value="5"> 
+  </pre>
+
+  Remarks <textarea rows="4" cols="50" name="remarks"></textarea> <br><br>
+
+  <center>
+    <input type="submit" value="Submit"> 
+    <input type="reset" value="Clear">
+  </center>
+</form>
+</body>
+</html>
