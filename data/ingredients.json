@@ -1,0 +1,184 @@
+{
+  "Italian": {
+    "Spaghetti Carbonara": {
+      "ingredients": [
+        { "name": "Spaghetti", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Eggs", "quantity": "2", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Parmesan cheese", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Pancetta", "quantity": "100g", "aisleCategory": "Meat & Protein" },
+        { "name": "Black pepper", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Margherita Pizza": {
+      "ingredients": [
+        { "name": "Pizza dough", "quantity": "1 base", "aisleCategory": "Grains & Pasta" },
+        { "name": "Tomato sauce", "quantity": "100ml", "aisleCategory": "Frozen & Canned" },
+        { "name": "Mozzarella", "quantity": "100g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Basil", "quantity": "5 leaves", "aisleCategory": "Produce & Herbs" }
+      ]
+    },
+    "Lasagna": {
+      "ingredients": [
+        { "name": "Lasagna noodles", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Ground beef", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Tomato sauce", "quantity": "150ml", "aisleCategory": "Frozen & Canned" },
+        { "name": "Ricotta cheese", "quantity": "100g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Mozzarella", "quantity": "100g", "aisleCategory": "Dairy & Eggs" }
+      ]
+    },
+    "Pesto Pasta": {
+      "ingredients": [
+        { "name": "Pasta", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Basil pesto", "quantity": "50g", "aisleCategory": "Baking & Pantry" },
+        { "name": "Parmesan cheese", "quantity": "30g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Olive oil", "quantity": "2 tbsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Tiramisu": {
+      "ingredients": [
+        { "name": "Ladyfingers", "quantity": "100g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Mascarpone cheese", "quantity": "100g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Coffee", "quantity": "50ml", "aisleCategory": "Frozen & Canned" },
+        { "name": "Cocoa powder", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Sugar", "quantity": "50g", "aisleCategory": "Baking & Pantry" }
+      ]
+    }
+  },
+  "Mexican": {
+    "Tacos": {
+      "ingredients": [
+        { "name": "Tortillas", "quantity": "4", "aisleCategory": "Grains & Pasta" },
+        { "name": "Ground beef", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Lettuce", "quantity": "50g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Cheddar cheese", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Salsa", "quantity": "50g", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Guacamole": {
+      "ingredients": [
+        { "name": "Avocado", "quantity": "2", "aisleCategory": "Produce & Herbs" },
+        { "name": "Tomato", "quantity": "1", "aisleCategory": "Produce & Herbs" },
+        { "name": "Onion", "quantity": "1/2", "aisleCategory": "Produce & Herbs" },
+        { "name": "Lime juice", "quantity": "1 tbsp", "aisleCategory": "Produce & Herbs" },
+        { "name": "Salt", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Quesadilla": {
+      "ingredients": [
+        { "name": "Tortilla", "quantity": "2", "aisleCategory": "Grains & Pasta" },
+        { "name": "Cheddar cheese", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Chicken breast", "quantity": "100g", "aisleCategory": "Meat & Protein" },
+        { "name": "Bell pepper", "quantity": "1/2", "aisleCategory": "Produce & Herbs" }
+      ]
+    },
+    "Burrito": {
+      "ingredients": [
+        { "name": "Tortilla", "quantity": "1", "aisleCategory": "Grains & Pasta" },
+        { "name": "Rice", "quantity": "100g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Black beans", "quantity": "100g", "aisleCategory": "Meat & Protein" },
+        { "name": "Sour cream", "quantity": "30g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Salsa", "quantity": "50g", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Churros": {
+      "ingredients": [
+        { "name": "Flour", "quantity": "100g", "aisleCategory": "Baking & Pantry" },
+        { "name": "Sugar", "quantity": "50g", "aisleCategory": "Baking & Pantry" },
+        { "name": "Cinnamon", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Oil", "quantity": "200ml", "aisleCategory": "Baking & Pantry" }
+      ]
+    }
+  },
+  "Indian": {
+    "Butter Chicken": {
+      "ingredients": [
+        { "name": "Chicken breast", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Butter", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Tomato puree", "quantity": "100ml", "aisleCategory": "Frozen & Canned" },
+        { "name": "Cream", "quantity": "50ml", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Garam masala", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Chole": {
+      "ingredients": [
+        { "name": "Chickpeas", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Onion", "quantity": "1", "aisleCategory": "Produce & Herbs" },
+        { "name": "Tomato", "quantity": "1", "aisleCategory": "Produce & Herbs" },
+        { "name": "Ginger-garlic paste", "quantity": "1 tbsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Cumin", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Paneer Tikka": {
+      "ingredients": [
+        { "name": "Paneer", "quantity": "150g", "aisleCategory": "Meat & Protein" },
+        { "name": "Yogurt", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Red chili powder", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Bell pepper", "quantity": "1/2", "aisleCategory": "Produce & Herbs" }
+      ]
+    },
+    "Biryani": {
+      "ingredients": [
+        { "name": "Basmati rice", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Chicken", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Yogurt", "quantity": "50g", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Biryani masala", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Onion", "quantity": "1", "aisleCategory": "Produce & Herbs" }
+      ]
+    },
+    "Samosa": {
+      "ingredients": [
+        { "name": "Flour", "quantity": "100g", "aisleCategory": "Baking & Pantry" },
+        { "name": "Potato", "quantity": "150g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Peas", "quantity": "50g", "aisleCategory": "Frozen & Canned" },
+        { "name": "Cumin seeds", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Oil", "quantity": "50ml", "aisleCategory": "Baking & Pantry" }
+      ]
+    }
+  },
+  "Chinese": {
+    "Fried Rice": {
+      "ingredients": [
+        { "name": "Rice", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Eggs", "quantity": "2", "aisleCategory": "Dairy & Eggs" },
+        { "name": "Carrot", "quantity": "50g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Soy sauce", "quantity": "2 tbsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Green peas", "quantity": "50g", "aisleCategory": "Frozen & Canned" }
+      ]
+    },
+    "Kung Pao Chicken": {
+      "ingredients": [
+        { "name": "Chicken breast", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Bell pepper", "quantity": "1", "aisleCategory": "Produce & Herbs" },
+        { "name": "Peanuts", "quantity": "30g", "aisleCategory": "Meat & Protein" },
+        { "name": "Soy sauce", "quantity": "2 tbsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Chili flakes", "quantity": "1 tsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Spring Rolls": {
+      "ingredients": [
+        { "name": "Spring roll wrappers", "quantity": "6", "aisleCategory": "Frozen & Canned" },
+        { "name": "Cabbage", "quantity": "50g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Carrot", "quantity": "50g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Soy sauce", "quantity": "1 tbsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Sweet and Sour Pork": {
+      "ingredients": [
+        { "name": "Pork", "quantity": "200g", "aisleCategory": "Meat & Protein" },
+        { "name": "Pineapple chunks", "quantity": "100g", "aisleCategory": "Frozen & Canned" },
+        { "name": "Bell pepper", "quantity": "1", "aisleCategory": "Produce & Herbs" },
+        { "name": "Vinegar", "quantity": "2 tbsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Sugar", "quantity": "1 tbsp", "aisleCategory": "Baking & Pantry" }
+      ]
+    },
+    "Chow Mein": {
+      "ingredients": [
+        { "name": "Noodles", "quantity": "200g", "aisleCategory": "Grains & Pasta" },
+        { "name": "Cabbage", "quantity": "50g", "aisleCategory": "Produce & Herbs" },
+        { "name": "Soy sauce", "quantity": "2 tbsp", "aisleCategory": "Baking & Pantry" },
+        { "name": "Chicken", "quantity": "150g", "aisleCategory": "Meat & Protein" },
+        { "name": "Carrot", "quantity": "50g", "aisleCategory": "Produce & Herbs" }
+      ]
+    }
+  }
+}
