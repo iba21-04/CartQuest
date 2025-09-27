@@ -24,13 +24,37 @@
     </div>
   </header>
   <main>
-    <div class="fake-btn">What would you like to eat today?</div>
-    <div class="vertical-box">
-      <button class="start-btn">Mexican</button>
-      <button class="start-btn">Indian</button>
-      <button class="start-btn">Chinese</button>
-      <button class="start-btn">Italian</button>
-    </div>
-  </main>
+  <div class="fake-btn">What would you like to eat today?</div>
+
+  <div class="vertical-box" id="button-container">
+    <button class="start-btn" onclick="showCuisine('mexican')">Mexican</button>
+    <button class="start-btn" onclick="showCuisine('indian')">Indian</button>
+    <button class="start-btn" onclick="showCuisine('chinese')">Chinese</button>
+    <button class="start-btn" onclick="showCuisine('italian')">Italian</button>
+  </div>
+</main>
+
 </body>
 </html>
+<script>
+  // Cuisine data
+  const cuisines = {
+    mexican: ["Burritos", "Tacos", "Nachos", "Quesadillas", "Churros"],
+    indian: ["Butter Chicken", "Biryani", "Samosa"," Paneer Tikka", "Chole Bhature"],
+    chinese: ["Fried Rice", "Kung Pao Chicken", "Spring Rolls", "Sweet and Sour Pork"],
+    italian: ["Margherita Pizza", "Pesto Pasta", "Lasagna", "Tiramisu"]
+  };""
+
+  function showCuisine(type) {
+    const container = document.getElementById("button-container");
+    container.innerHTML = ""; // clear existing buttons
+
+    // load new buttons for that cuisine
+    cuisines[type].forEach(food => {
+      const btn = document.createElement("button");
+      btn.className = "start-btn"; // same orange styling
+      btn.textContent = food;
+      container.appendChild(btn);
+    });
+  }
+</script>

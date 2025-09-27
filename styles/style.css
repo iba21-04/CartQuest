@@ -75,18 +75,18 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* move content to top */
+  justify-content: center; /* center vertically */
   width: 100%;
-  padding-top: 60px;           /* add space from top */
+  padding-top: 0;          /* remove extra top space */
 }
 
 main h1 {
-  font-size: 70px;         /* increase size by 2 steps */
-  font-weight: bold;       /* make bold */
+  font-size: 70px;
+  font-weight: bold;
   margin-bottom: 20px;
   width: 100%;
   text-align: center;
-  margin-top: -80px;       /* move heading up by 1 line */
+  margin-top: -40px; /* move heading up a little */
 }
 
 main .start-btn {
