@@ -27,33 +27,55 @@
   <div class="fake-btn">What would you like to eat today?</div>
 
   <div class="vertical-box" id="button-container">
-    <button class="start-btn" onclick="showCuisine('mexican')">Mexican</button>
-    <button class="start-btn" onclick="showCuisine('indian')">Indian</button>
-    <button class="start-btn" onclick="showCuisine('chinese')">Chinese</button>
-    <button class="start-btn" onclick="showCuisine('italian')">Italian</button>
+<button class="start-btn" onclick="showCuisine('mexican')">🌮 Mexican</button>
+      <button class="start-btn" onclick="showCuisine('indian')">🍛 Indian</button>
+      <button class="start-btn" onclick="showCuisine('chinese')">🥡 Chinese</button>
+      <button class="start-btn" onclick="showCuisine('italian')">🍕 Italian</button>
   </div>
 </main>
 
 </body>
 </html>
 <script>
-  // Cuisine data
+  // Cuisine and food data
   const cuisines = {
-    mexican: ["Burritos", "Tacos", "Nachos", "Quesadillas", "Churros"],
-    indian: ["Butter Chicken", "Biryani", "Samosa"," Paneer Tikka", "Chole Bhature"],
-    chinese: ["Fried Rice", "Kung Pao Chicken", "Spring Rolls", "Sweet and Sour Pork"],
-    italian: ["Margherita Pizza", "Pesto Pasta", "Lasagna", "Tiramisu"]
-  };""
+        mexican: ["🌯 Burritos", "🌮 Tacos", "🧀 Nachos", "🥟 Quesadillas", "🍩 Churros"],
+      indian: ["🍗 Butter Chicken", "🍚 Biryani", "🥟 Samosa", "🧀 Paneer Tikka", "🥘 Chole Bhature"],
+      chinese: ["🍚 Fried Rice", "🌶 Kung Pao Chicken", "🥠 Spring Rolls", "🍖 Sweet and Sour Pork"],
+      italian: ["🍕 Margherita Pizza", "🍝 Pesto Pasta", "🍲 Lasagna", "🍰 Tiramisu"]
+  };
 
   function showCuisine(type) {
     const container = document.getElementById("button-container");
     container.innerHTML = ""; // clear existing buttons
 
-    // load new buttons for that cuisine
+    // Add food option buttons
     cuisines[type].forEach(food => {
       const btn = document.createElement("button");
-      btn.className = "start-btn"; // same orange styling
+      btn.className = "start-btn";
       btn.textContent = food;
+      container.appendChild(btn);
+    });
+
+    // Add a Back button
+    const backBtn = document.createElement("button");
+    backBtn.className = "start-btn";
+    backBtn.textContent = "⬅ Back";
+    backBtn.onclick = showMainMenu;
+    container.appendChild(backBtn);
+  }
+
+  function showMainMenu() {
+    const container = document.getElementById("button-container");
+    container.innerHTML = ""; // clear options
+
+    // Recreate main cuisine buttons
+    const mainCuisines = Object.keys(cuisines);
+    mainCuisines.forEach(cuisine => {
+      const btn = document.createElement("button");
+      btn.className = "start-btn";
+      btn.textContent = cuisine.charAt(0).toUpperCase() + cuisine.slice(1);
+      btn.onclick = () => showCuisine(cuisine);
       container.appendChild(btn);
     });
   }
