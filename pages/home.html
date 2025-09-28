@@ -48,13 +48,12 @@
         header {
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(255, 140, 0, 0.3);
-            border-bottom: 2px solid rgba(255, 140, 0, 0.08);
+            border-bottom: 2px solid rgba(255, 140, 0, 0.2);
             position: fixed;
             width: 100%;
             top: 20px;
             z-index: 1000;
             transition: all 0.3s ease;
-            background: transparent; /* keep header see-through by default */
         }
 
         nav {
@@ -402,6 +401,7 @@
                   <a href="about.html">About</a>
                   <a href="feedback.html">Feedback</a>
                   <a href="contact.html">Contact</a>
+
             </ul>
             <div class="orange-buttons">
                 <a href="#" class="orange-btn">Explore</a>
@@ -420,7 +420,7 @@
         <section class="hero">
             <h1>Welcome to Cart Quest</h1>
             <p>Explore aisles, grab the best deals, and see if you can conquer the ultimate shopping challenge. Are you ready to fill your cart?</p>
-            <a href="#" class="start-button">Start</a>
+            <a href="prompt.html" class="start-button">Start</a>
             
             <div class="features">
                 <div class="feature-card">
@@ -452,11 +452,10 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                // use a subtle translucent background that matches the orange theme
-                header.style.background = 'linear-gradient(180deg, rgba(255,140,0,0.06), rgba(0,0,0,0.15))';
-                header.style.boxShadow = '0 8px 32px rgba(255, 140, 0, 0.45)';
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.boxShadow = '0 8px 32px rgba(255, 140, 0, 0.4)';
             } else {
-                header.style.background = 'transparent';
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
                 header.style.boxShadow = '0 8px 32px rgba(255, 140, 0, 0.3)';
             }
         });
