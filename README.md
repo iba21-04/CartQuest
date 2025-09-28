@@ -20,15 +20,15 @@ How to Play 🎮
 
 Tech Stack 🛠️
 
-Frontend: HTML, CSS, JavaScript
-Animations: CSS keyframes for floating shapes, glowing buttons, and hover effects
+  Frontend: HTML, CSS, JavaScript
+  Animations: CSS keyframes for floating shapes, glowing buttons, and hover effects
 
 Future Game Enhancements 🚀
 
-Add score system: earn points for selecting certain dishes or combos.
-Introduce mini-games in different aisles of the virtual store.
-Include user profiles to save progress, preferences, and unlocked animations.
-Add sound effects to make the game more immersive.
+1. Add score system: earn points for selecting certain dishes or combos.
+2. Introduce mini-games in different aisles of the virtual store.
+3. Include user profiles to save progress, preferences, and unlocked animations.
+4. Add sound effects to make the game more immersive.
 
 
 Contributors 👩‍💻👨‍💻
