@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket Scavenger Hunt</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+
+        /* Container for the aisle buttons over the image */
+        #aisleMapContainer {
+            position: relative;
+        }
+
+        /* Aisle Marker Styling (Horizontal, transparent clicks) */
+        .aisle-marker-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            /* Horizontal (left to right) */
+            justify-content: space-around;
+            align-items: center;
+            padding: 0;
+        }
+
+        .aisle-marker-overlay button {
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            color: transparent;
+            font-weight: bold;
+            display: block;
+            cursor: pointer;
+            transition: none;
+            box-shadow: none;
+            width: calc(100% / 6);
+            /* Divide width by 6 for 6 aisles */
+            height: 100%;
+            /* Take full height of overlay */
+            font-size: 0;
+            /* Ensure no text is visible */
+        }
+
+        .aisle-marker-overlay button:hover {
+            background-color: rgba(219, 234, 254, 0.2);
+            /* Slight light blue highlight on hover */
+            transform: none;
+        }
+
+        /* Detailed Aisle Click Zone Styling */
+        #aisleImageContainer {
+            position: relative;
+        }
+
+        #ingredientClickOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ingredient-click-zone {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            /* Remove padding */
+            cursor: pointer;
+            transition: none;
+            opacity: 1;
+        }
+
+        .ingredient-click-zone:hover:not(.found, .disabled) {
+            background-color: rgba(255, 193, 7, 0.2);
+            /* Light yellow highlight on hover for feedback */
+            z-index: 10;
+        }
+
+        /* Ingredient button styles (Now transparent overlays) */
+        .ingredient-btn {
+            @apply w-full h-full text-center;
+            background-color: transparent;
+            /* Make fully transparent */
+            border: none;
+            /* Remove border */
+            color: transparent;
+            /* Hide text */
+            pointer-events: all;
+            transition: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .ingredient-btn.found {
+            background-color: rgba(16, 185, 129, 0.4);
+            /* Green highlight if found */
+            border: none;
+            color: transparent;
+            cursor: default;
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+        .ingredient-btn.is-not-required {
+            background-color: transparent;
+            border: none;
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col p-4 md:p-8">
+
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-6 text-center">The Grocery Rush</h1>
+
+    <!-- Main Game Container: Uses flex to arrange content and sidebar -->
+    <main class="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto">
+
+        <!-- Game Canvas / Main Area -->
+        <section class="lg:w-3/4 w-full bg-white p-6 rounded-xl shadow-2xl border border-blue-100">
+
+            <!-- Title will change based on view -->
+            <h2 id="mainTitle" class="text-2xl font-semibold mb-4 text-blue-800">Shopping List: Spaghetti Bolognese</h2>
+
+            <!-- 1. Dish Selection View (Hidden, as we assume one dish) -->
+            <div id="dishSelectionView" class="w-full hidden">
+                <!-- Content removed to force direct start -->
+            </div>
+
+            <!-- 2. Aisle Map View -->
+            <div id="aisleMapContainer"
+                class="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg border border-gray-200 hidden"
+                style="background-color: #e5e7eb;">
+                <!-- Image source updated to aisles.jpeg and object-fit adjusted to object-contain to prevent stretching -->
+                <img id="aislesImage" class="w-full h-full object-contain" src="../images/aisles.jpeg"
+                    alt="Map of 6 Aisles">
+
+                <!-- Clickable Aisle Markers Overlay -->
+                <div class="aisle-marker-overlay">
+                    <button onclick="selectAisle(1)">Aisle 1</button>
+                    <button onclick="selectAisle(2)">Aisle 2</button>
+                    <button onclick="selectAisle(3)">Aisle 3</button>
+                    <button onclick="selectAisle(4)">Aisle 4</button>
+                    <button onclick="selectAisle(5)">Aisle 5</button>
+                    <button onclick="selectAisle(6)">Aisle 6</button>
+                </div>
+            </div>
+
+            <!-- 3. Detailed Aisle View -->
+            <div id="detailedAisleView" class="mt-6 hidden">
+                <div id="aisleImageContainer"
+                    class="w-full aspect-[16/5] mb-4 rounded-lg overflow-hidden shadow-md border border-gray-200">
+                    <!-- Image class updated to object-cover to expand and fill the container for click accuracy -->
+                    <img id="aisleDetailImage" class="w-full h-full object-cover" src="" alt="Detailed Aisle View">
+
+                    <!-- Overlay for clickable ingredient zones -->
+                    <div id="ingredientClickOverlay">
+                        <!-- Click zones will be dynamically injected here -->
+                    </div>
+                </div>
+
+                <button onclick="showAisleMap()"
+                    class="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-150">
+                    ← Back to Aisle Map
+                </button>
+            </div>
+
+            <!-- Win/Lose Message Box -->
+            <div id="messageBox"
+                class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50">
+                <div class="bg-white p-8 rounded-xl shadow-2xl text-center max-w-md w-full">
+                    <h3 id="messageTitle" class="text-3xl font-bold text-blue-600 mb-4"></h3>
+                    <p id="messageBody" class="text-gray-700 mb-6"></p>
+                    <button onclick="resetGame()"
+                        class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Play Again
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar / Game Stats -->
+        <aside class="lg:w-1/4 w-full bg-white p-6 rounded-xl shadow-2xl border border-blue-100 h-fit sticky top-8">
+            <h2 class="text-xl font-semibold mb-4 text-blue-800 border-b pb-2">Game Progress</h2>
+
+            <!-- Timer -->
+            <div class="mb-4">
+                <span class="text-gray-500 text-sm">Time Elapsed:</span>
+                <p id="timerDisplay" class="text-3xl font-bold text-gray-900">0:00</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <span class="text-gray-500 text-sm">Items Found:</span>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500"
+                        style="width: 0%"></div>
+                </div>
+                <p id="progressText" class="text-sm mt-1 text-right text-gray-600">0 Items</p>
+            </div>
+
+            <!-- Ingredient Checklist -->
+            <div>
+                <h3 class="text-lg font-medium mb-3 text-gray-800">Your Shopping List:</h3>
+                <ul id="ingredientList" class="space-y-2">
+                    <!-- List items will be injected here by JS -->
+                    <li class="text-gray-500 italic">Loading list...</li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <script>
+        // --- Game Data Structure ---
+
+        // All possible ingredients organized by Aisle and Row (for display)
+        const AISLE_CONTENTS = {
+            1: {
+                name: "Grains & Pasta", rows: [
+                    ["Spaghetti"],
+                    ["Lasagna"],
+                    ["Tortillas", "Dry Pasta"],
+                    ["Pizza Dough", "Rice"]
+                ]
+            },
+            2: {
+                name: "Dairy & Cheese", rows: [
+                    ["Eggs", "Yogurt"],
+                    ["Parmesan Cheese", "Cream"],
+                    ["Cheddar"],
+                    ["Mozzarella Cheese"],
+                    ["Ricotta Cheese"]
+                ]
+            },
+            3: {
+                name: "Produce", rows: [
+                    ["Carrot", "Cabbage"],
+                    ["Bell Peppers", "Potatoes"],
+                    ["Peas", "Onion"],
+                    ["Tomato", "Avocado"]
+                ]
+            },
+            4: {
+                name: "Spices & Oils", rows: [
+                    ["Vinegar", "Soy Sauce"],
+                    ["Sugar", "Red Chili Pepper"],
+                    ["Oil", "Cumin Seeds"],
+                    ["Masala Mix"]
+                ]
+            },
+            5: {
+                name: "Proteins & Legumes", rows: [
+                    ["Pancetta", "Ground Beef"],
+                    ["Chicken", "Black Beans"],
+                    ["Chickpeas", "Paneer"],
+                    ["Peanuts", "Pork"]
+                ]
+            },
+            6: {
+                name: "Canned & Wraps", rows: [
+                    ["Pineapple"],
+                    ["Tomato Sauce"],
+                    ["Canned Peas"],
+                    ["Spring Roll Wraps"]
+                ]
+            },
+        };
+
+        // Hardcoded ingredients for the starting dish: Spaghetti Bolognese
+        const STARTING_DISH_INGREDIENTS = [
+            { "item": "Ground Beef", "aisle": 5 },
+            { "item": "Tomato Sauce", "aisle": 6 },
+            { "item": "Spaghetti", "aisle": 1 }
+        ];
+
+        // --- Game State ---
+        let gameState = {
+            requiredIngredients: [],
+            foundIngredients: [],
+            startTime: null,
+            timerInterval: null,
+            currentAisle: null,
+            isGameRunning: false
+        };
+
+        // --- DOM Elements ---
+        const $ = (id) => document.getElementById(id);
+        const elements = {
+            mainTitle: $('mainTitle'),
+            dishSelectionView: $('dishSelectionView'),
+            aisleMapContainer: $('aisleMapContainer'),
+            detailedAisleView: $('detailedAisleView'),
+            aisleDetailImage: $('aisleDetailImage'),
+            ingredientClickOverlay: $('ingredientClickOverlay'),
+            timerDisplay: $('timerDisplay'),
+            progressBar: $('progressBar'),
+            progressText: $('progressText'),
+            ingredientList: $('ingredientList'),
+            messageBox: $('messageBox'),
+            messageTitle: $('messageTitle'),
+            messageBody: $('messageBody')
+        };
+
+        // --- Utility Functions ---
+
+        /**
+         * Converts seconds into MM:SS format.
+         * @param {number} totalSeconds 
+         * @returns {string}
+         */
+        const formatTime = (totalSeconds) => {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        };
+
+        /**
+         * Updates the sidebar UI (Timer, Progress, Checklist).
+         */
+        const updateUI = () => {
+            const totalRequired = gameState.requiredIngredients.length;
+            const foundCount = gameState.foundIngredients.length;
+            const progress = totalRequired > 0 ? (foundCount / totalRequired) * 100 : 0;
+
+            elements.progressBar.style.width = `${progress}%`;
+            elements.progressText.textContent = `${foundCount}/${totalRequired} Items`;
+
+            // Update the checklist
+            const listHTML = gameState.requiredIngredients.map(item => {
+                const ingredientName = item.item;
+                const isFound = gameState.foundIngredients.includes(ingredientName);
+                const aisle = item.aisle;
+
+                return `
+                    <li class="flex items-center text-gray-700 ${isFound ? 'text-green-600 line-through' : ''}">
+                        <svg class="w-5 h-5 mr-2 ${isFound ? 'text-green-500' : 'text-blue-300'}" fill="currentColor" viewBox="0 0 20 20">
+                            ${isFound
+                        ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 13.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>'
+                        : '<circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"></circle>'}
+                        </svg>
+                        ${ingredientName} <span class="text-xs text-gray-400 ml-1">(Aisle ${aisle}: ${AISLE_CONTENTS[aisle].name})</span>
+                    </li>
+                `;
+            }).join('');
+            elements.ingredientList.innerHTML = listHTML;
+        };
+
+        /**
+         * Starts or updates the game timer.
+         */
+        const startTimer = () => {
+            if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+            gameState.startTime = Date.now();
+
+            gameState.timerInterval = setInterval(() => {
+                if (gameState.isGameRunning) {
+                    const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
+                    elements.timerDisplay.textContent = formatTime(elapsed);
+                }
+            }, 1000);
+        };
+
+        // --- Game Initialization Logic ---
+
+        /**
+         * Initializes or resets the entire game state and UI to the starting dish.
+         */
+        const initializeGame = () => {
+            if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+
+            // Hardcode Spaghetti Bolognese as the required ingredients
+            const requiredIngredients = STARTING_DISH_INGREDIENTS;
+
+            // Reset and setup game state
+            gameState.requiredIngredients = requiredIngredients;
+            gameState.foundIngredients = [];
+            gameState.currentAisle = null;
+            gameState.isGameRunning = true;
+
+            // Set initial UI state
+            elements.timerDisplay.textContent = "0:00";
+            elements.dishSelectionView.classList.add('hidden');
+            updateUI();
+
+            // Start the game view immediately
+            showAisleMap();
+            startTimer();
+        };
+
+        /**
+         * Displays the main aisle map view and hides the detailed aisle view.
+         */
+        const showAisleMap = () => {
+            elements.mainTitle.textContent = "Shopping List: Spaghetti Bolognese - Select an Aisle";
+            elements.aisleMapContainer.classList.remove('hidden');
+            elements.detailedAisleView.classList.add('hidden');
+            gameState.currentAisle = null;
+        };
+
+        /**
+         * Displays the detailed view for a selected aisle, with dynamic click zones.
+         * @param {number} aisleNum 
+         */
+        const selectAisle = (aisleNum) => {
+            if (!gameState.isGameRunning) return;
+
+            gameState.currentAisle = aisleNum;
+            const aisleData = AISLE_CONTENTS[aisleNum];
+
+            // 1. Update Title and Image Source
+            elements.mainTitle.textContent = `Aisle ${aisleNum}: ${aisleData.name}`;
+
+            // Set image path
+            elements.aisleDetailImage.src = `../images/aisle-${aisleNum}.png`;
+
+            // 2. Render Dynamic Ingredient Click Zones OVER the image
+            let overlayHTML = '';
+            const totalRows = aisleData.rows.length;
+
+            aisleData.rows.forEach((row, rowIndex) => {
+                const totalItemsInRow = row.length;
+
+                // Calculate position and size based on the container (100% of height/width)
+                const rowHeight = 100 / totalRows;
+                const rowYStart = rowIndex * rowHeight;
+
+                row.forEach((ingredient, colIndex) => {
+                    // Check if this ingredient is required and if it belongs to this aisle
+                    const requiredItem = gameState.requiredIngredients.find(item => item.item === ingredient && item.aisle === aisleNum);
+                    const isRequiredAndCorrectAisle = !!requiredItem;
+
+                    // Check if the ingredient has already been found
+                    const isFound = gameState.foundIngredients.includes(ingredient);
+
+                    // Calculate item dimensions for the click zone
+                    const itemWidth = 100 / totalItemsInRow;
+                    const itemXStart = colIndex * itemWidth;
+
+                    // Determine button styling (now focused on visual feedback for found/required state)
+                    let buttonClass = 'ingredient-btn';
+                    if (isFound) {
+                        buttonClass += ' found';
+                    } else if (!isRequiredAndCorrectAisle) {
+                        buttonClass += ' is-not-required';
+                    }
+
+                    // Create the absolute positioned click zone
+                    overlayHTML += `
+                        <div class="ingredient-click-zone ${isFound ? 'found' : ''}" 
+                             style="top: ${rowYStart}%; left: ${itemXStart}%; width: ${itemWidth}%; height: ${rowHeight}%;"
+                             onclick="pickIngredient('${ingredient.replace(/'/g, "\\'")}', ${aisleNum})"
+                             >
+                             <!-- The inner button is now completely transparent, acting only as the visible hover/found indicator -->
+                             <button class="${buttonClass}" ${isFound ? 'disabled' : ''}>
+                                ${ingredient} 
+                            </button>
+                        </div>
+                    `;
+                });
+            });
+
+            elements.ingredientClickOverlay.innerHTML = overlayHTML;
+
+            // 3. Update View
+            elements.aisleMapContainer.classList.add('hidden');
+            elements.detailedAisleView.classList.remove('hidden');
+
+            /*
+             * NOTE ON CLICK ZONE ACCURACY:
+             * The image now uses object-cover, meaning it stretches to fill the container (aspect-[16/5]). 
+             * This ensures the dynamic click zones accurately overlay the image area, 
+             * though the image may be slightly cropped or stretched to fit.
+             */
+        };
+
+        /**
+         * Handles the user clicking an ingredient button.
+         * @param {string} ingredientName 
+         * @param {number} aisleNum 
+         */
+        const pickIngredient = (ingredientName, aisleNum) => {
+            if (!gameState.isGameRunning || gameState.foundIngredients.includes(ingredientName)) return;
+
+            // Check if this ingredient is required AND is in the correct aisle
+            const requiredItem = gameState.requiredIngredients.find(item => item.item === ingredientName && item.aisle === aisleNum);
+
+            if (requiredItem) {
+                // Correctly found
+                gameState.foundIngredients.push(ingredientName);
+
+                // Re-render the detailed aisle view to update the button status
+                selectAisle(aisleNum);
+                updateUI(); // Update progress bar and checklist
+
+                if (gameState.foundIngredients.length === gameState.requiredIngredients.length) {
+                    // All ingredients found, WIN condition
+                    endGame(true);
+                }
+            } else {
+                // Incorrect ingredient picked (either wrong item or right item in the wrong aisle)
+                console.log(`Incorrect pick: ${ingredientName} in Aisle ${aisleNum}. Must be required and in the correct aisle.`);
+            }
+        };
+
+        /**
+         * Ends the game and displays the final result.
+         * @param {boolean} won 
+         */
+        const endGame = (won) => {
+            gameState.isGameRunning = false;
+            if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+
+            elements.messageBox.classList.remove('hidden');
+            elements.messageBox.classList.add('flex');
+
+            const finalTime = elements.timerDisplay.textContent;
+
+            if (won) {
+                elements.messageTitle.textContent = "🛒 Success! Shopping Complete!";
+                elements.messageBody.innerHTML = `You found all ${gameState.requiredIngredients.length} items in <span class="font-bold text-blue-600">${finalTime}</span>. Excellent work!`;
+            } else {
+                elements.messageTitle.textContent = "Game Over";
+                elements.messageBody.textContent = "Time's up! Try again.";
+            }
+        };
+
+        /**
+         * Resets the game to its initial state (Spaghetti Bolognese start).
+         */
+        const resetGame = () => {
+            elements.messageBox.classList.add('hidden');
+            elements.messageBox.classList.remove('flex');
+            initializeGame();
+        }
+
+        // --- Start the game on load ---
+        window.onload = initializeGame;
+
+    </script>
+</body>
+
+</html>
